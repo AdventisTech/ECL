@@ -1,9 +1,10 @@
 const path = require("path");
+const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
 
 require("dotenv").config({
-    path: path.join(__dirname, ".env")
+  path: path.join(__dirname, ".env")
 });
 
 const app = express();
@@ -20,8 +21,8 @@ app.use(cors({
   origin: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: [
-    "Content-Type", 
-    "Authorization", 
+    "Content-Type",
+    "Authorization",
     "Access-Control-Request-Private-Network",
     "Access-Control-Request-Method",
     "Access-Control-Request-Headers"
@@ -39,12 +40,12 @@ app.use(express.urlencoded({ extended: true }));
 // API ROUTES (MUST BE BEFORE STATIC FILES)
 // ===============================
 app.use("/api/spdccm", require("./routes/spdCcmRoutes"));
-app.use("/api/ccm3", require("./routes/ccm3Routes")); 
+app.use("/api/ccm3", require("./routes/ccm3Routes"));
 app.use("/api/ccm03-new", require("./routes/ccm03NewRoutes"));
 app.use("/api/ccm01", require("./routes/ccm01Routes"));
-app.use('/api/ccm05', require('./routes/ccm05Routes'));
-app.use('/api/ccm11', require('./routes/ccm11Routes'));
-app.use('/api/ccm12', require('./routes/ccm12Routes'));
+app.use("/api/ccm05", require("./routes/ccm05Routes"));
+app.use("/api/ccm11", require("./routes/ccm11Routes"));
+app.use("/api/ccm12", require("./routes/ccm12Routes"));
 
 const ccm6Routes = require("./routes/ccm6Routes");
 const ccm7Routes = require("./routes/ccm7Routes");
@@ -72,17 +73,38 @@ app.use("/api/core-shooter", require("./routes/coreShooterRoutes"));
 app.use("/api/melting", require("./routes/meltingRoutes"));
 app.use("/api/annealing-furnace", require("./routes/annealingFurnaceRoutes"));
 
+// Unknown API routes return JSON 404 instead of the Angular page
+app.use("/api", (req, res) => {
+  res.status(404).json({ error: "API route not found", path: req.originalUrl });
+});
+
 // ===============================
 // ANGULAR FRONTEND
 // ===============================
-// ✅ FIX: Correct path for Render (no "../")
-const angularPath = path.join(__dirname, "dist/OptiMES2.0/browser");
+// Looks for the folder that actually contains index.html.
+// Add or remove candidates to match your repo layout.
+const candidates = [
+  path.join(__dirname, "ECL", "browser"),
+  path.join(__dirname, "browser"),
+  path.join(__dirname, "dist", "OptiMES2.0", "browser"),
+  path.join(__dirname, "public")
+];
+
+const angularPath =
+  candidates.find((p) => fs.existsSync(path.join(p, "index.html"))) ||
+  candidates[0];
+
+console.log("Serving Angular from:", angularPath,
+  fs.existsSync(path.join(angularPath, "index.html")) ? "(found)" : "(index.html NOT found)");
 
 app.use(express.static(angularPath));
 
-// ✅ SPA Fallback: Serve index.html for any non-API route
-app.get('*', (req, res) => {
-    res.sendFile(path.join(angularPath, "index.html"));
+// ✅ SPA fallback (Express 4 and 5 compatible; no '*' route pattern)
+app.use((req, res, next) => {
+  if (req.method !== "GET" && req.method !== "HEAD") return next();
+  res.sendFile(path.join(angularPath, "index.html"), (err) => {
+    if (err) next(err);
+  });
 });
 
 module.exports = app;
