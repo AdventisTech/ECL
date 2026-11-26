@@ -11,7 +11,13 @@ const DB_ENV_KEYS = {
     zinc: "SQL_DATABASE_ZINC",
     bitumen: "SQL_DATABASE_BITUMEN",
     moldshop: "SQL_DATABASE_MOULD_SHOP",
-    coreshooler: "SQL_DATABASE_CORE"
+    coreshooler: "SQL_DATABASE_CORE",
+    HPTM3: "SQL_DATABASE_HPTM3",
+    HPTM4: "SQL_DATABASE_HPTM4",
+    HPTM5: "SQL_DATABASE_HPTM5",
+    HPTM6: "SQL_DATABASE_HPTM6",
+    HPTM7: "SQL_DATABASE_HPTM7",
+    HPTM1: "SQL_DATABASE_HPTM_1"
 };
 
 const poolPromises = {};
@@ -71,6 +77,12 @@ function getzincPool() { return getPool("zinc"); }
 function getbitumenPool() { return getPool("bitumen"); }
 function getmoldshopPool() { return getPool("moldshop"); }
 function getcoreshoolerPool() { return getPool("coreshooler"); }
+function getHPTM3Pool() { return getPool("HPTM3"); }
+function getHPTM4Pool() { return getPool("HPTM4"); }
+function getHPTM5Pool() { return getPool("HPTM5"); }
+function getHPTM6Pool() { return getPool("HPTM6"); }
+function getHPTM7Pool() { return getPool("HPTM7"); }
+function getHPTM1Pool() { return getPool("HPTM1"); }
 
 module.exports = { 
     sql, 
@@ -85,5 +97,11 @@ module.exports = {
     getzincPool,
     getbitumenPool,
     getmoldshopPool,
-    getcoreshoolerPool 
+    getcoreshoolerPool ,
+    getHPTM3Pool,
+    getHPTM4Pool,
+    getHPTM5Pool,
+    getHPTM6Pool,
+    getHPTM7Pool,
+    getHPTM1Pool
 };
