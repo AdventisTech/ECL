@@ -1,10 +1,10 @@
 // const sql = require("mssql");
-// const { getBdpCcmPool } = require("../config/sqlDb");
+// const { getBdpCcmnewPool } = require("../config/sqlDb");
 
 // const TABLE = "CCM 04";
 
 // async function findAll(query = {}) {
-//     const pool = await getBdpCcmPool();
+//     const pool = await getBdpCcmnewPool();
 //     let queryStr = `SELECT * FROM ${TABLE}`;
 //     const request = pool.request();
 //     const conditions = [];
@@ -25,7 +25,7 @@
 
 // async function findById(id) {
 //     if (!id) return null;
-//     const pool = await getBdpCcmPool();
+//     const pool = await getBdpCcmnewPool();
 //     const numericId = Number(id);
 //     const request = pool.request();
 
@@ -38,7 +38,7 @@
 // }
 
 // async function findOne(query = {}) {
-//     const pool = await getBdpCcmPool();
+//     const pool = await getBdpCcmnewPool();
 //     const request = pool.request();
 //     let queryStr = `SELECT TOP 1 * FROM ${TABLE}`;
 //     const conditions = [];
@@ -62,7 +62,7 @@
 // }
 
 // async function countDocuments(query = {}) {
-//     const pool = await getBdpCcmPool();
+//     const pool = await getBdpCcmnewPool();
 //     const request = pool.request();
 //     let queryStr = `SELECT COUNT(*) AS total FROM ${TABLE}`;
 //     const conditions = [];
@@ -81,7 +81,7 @@
 // }
 
 // async function create(data) {
-//     const pool = await getBdpCcmPool();
+//     const pool = await getBdpCcmnewPool();
 //     const request = pool.request();
 
 //     // Map all fields dynamically with fallback defaults
@@ -134,7 +134,7 @@
 //     const existing = await findById(id);
 //     if (!existing) return null;
 
-//     const pool = await getBdpCcmPool();
+//     const pool = await getBdpCcmnewPool();
 //     const request = pool.request();
 //     request.input("dbId", sql.Int, existing.id);
 
@@ -186,7 +186,7 @@
 //     const existing = await findById(id);
 //     if (!existing) return null;
 
-//     const pool = await getBdpCcmPool();
+//     const pool = await getBdpCcmnewPool();
 //     const request = pool.request();
 //     request.input("dbId", sql.Int, existing.id);
 
@@ -217,7 +217,7 @@
 
 
 const sql = require("mssql");
-const { getBdpCcmPool } = require("../config/sqlDb");
+const { getBdpCcmnewPool } = require("../config/sqlDb");
 
 // =====================================================
 // TABLE NAME
@@ -378,7 +378,7 @@ function wrapRowAsDocument(row) {
 // =====================================================
 async function findAll(query = {}) {
 
-    const pool = await getBdpCcmPool();
+    const pool = await getBdpCcmnewPool();
 
     let queryStr = `
         SELECT *
@@ -448,7 +448,7 @@ async function findById(id) {
         return null;
     }
 
-    const pool = await getBdpCcmPool();
+    const pool = await getBdpCcmnewPool();
 
     const request = pool.request();
 
@@ -474,7 +474,7 @@ async function findById(id) {
 // =====================================================
 async function findOne(query = {}) {
 
-    const pool = await getBdpCcmPool();
+    const pool = await getBdpCcmnewPool();
 
     const request = pool.request();
 
@@ -537,7 +537,7 @@ async function find(query = {}) {
 // =====================================================
 async function countDocuments(query = {}) {
 
-    const pool = await getBdpCcmPool();
+    const pool = await getBdpCcmnewPool();
 
     const request = pool.request();
 
@@ -586,7 +586,7 @@ async function countDocuments(query = {}) {
 // =====================================================
 async function create(data = {}) {
 
-    const pool = await getBdpCcmPool();
+    const pool = await getBdpCcmnewPool();
 
     const request = pool.request();
 
@@ -665,7 +665,7 @@ async function findByIdAndUpdate(id, data = {}) {
         return null;
     }
 
-    const pool = await getBdpCcmPool();
+    const pool = await getBdpCcmnewPool();
 
     const request = pool.request();
 
@@ -745,7 +745,7 @@ async function findByIdAndDelete(id) {
         return null;
     }
 
-    const pool = await getBdpCcmPool();
+    const pool = await getBdpCcmnewPool();
 
     const request = pool.request();
 
