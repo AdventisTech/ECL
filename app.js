@@ -73,6 +73,15 @@ app.use("/api/core-shooter", require("./routes/coreShooterRoutes"));
 app.use("/api/melting", require("./routes/meltingRoutes"));
 app.use("/api/annealing-furnace", require("./routes/annealingFurnaceRoutes"));
 
+
+app.use("/api/hptm3", require("./routes/hptm3Routes"));
+app.use("/api/hptm4", require("./routes/hptm4Routes"));
+app.use("/api/hptm5", require("./routes/hptm5Routes"));
+app.use("/api/hptm6", require("./routes/hptm6Routes"));
+app.use("/api/hptm7", require("./routes/hptm7Routes"));
+app.use("/api/hptm1", require("./routes/hptm1Routes"));
+
+
 // Unknown API routes return JSON 404 instead of the Angular page
 app.use("/api", (req, res) => {
   res.status(404).json({ error: "API route not found", path: req.originalUrl });
